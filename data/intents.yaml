@@ -1,0 +1,114 @@
+# Slot notes:
+#   direction: up | down | set | mute | unmute
+#   amount: a number, a percent, or a fuzzy word like "bit" or "lot"
+
+set_timer:
+  description: countdown for a duration
+  slots: [duration, label]
+  examples:
+    - set a timer for 5 minutes
+    - start a 10 second timer
+    - timer for 2 hours
+    - give me 25 minutes on the clock
+
+set_alarm:
+  description: alarm or reminder at a clock time; label holds reminder text
+  slots: [time, label]
+  examples:
+    - set an alarm for 7am
+    - wake me up at 6:30
+    - remind me to call mom at 5pm
+    - alarm for tomorrow morning
+
+play_music:
+  description: start playing music or a playlist
+  slots: [media, artist, playlist]
+  examples:
+    - play some soul music
+    - play some rap
+    - play something by Gunna
+    - play afrobeat
+
+media_control:
+  description: control current playback
+  slots: [action]   # pause | resume | next | previous
+  examples:
+    - pause the music
+    - skip this song
+    - go back to the last track
+    - resume playback
+
+volume_control:
+  description: change or mute audio volume
+  slots: [direction, amount]
+  examples:
+    - turn the volume up
+    - set volume to 30 percent
+    - make it a bit quieter
+    - mute the sound
+
+set_brightness:
+  description: change screen brightness
+  slots: [direction, amount]
+  examples:
+    - turn the brightness up
+    - make the screen a bit dimmer
+    - set brightness to 50 percent
+    - lower the brightness
+
+open_app:
+  description: launch an application
+  slots: [app_name]
+  examples:
+    - open chrome
+    - launch calculator
+    - open my notes
+    - start spotify
+
+search_web:
+  description: search the web for a query
+  slots: [query]
+  examples:
+    - search for how to bake sourdough
+    - look up flights to Paris
+    - google python list comprehension
+    - find reviews for the new pixel
+
+call_contact:
+  description: call a person; needs a real handler (see notes)
+  slots: [contact]
+  examples:
+    - call mom
+    - phone Sarah
+    - give Alex a call
+    - call John on speaker
+
+find_file:
+  description: locate a file on the computer
+  slots: [query]
+  examples:
+    - find my resume
+    - where is the project report
+    - search my files for tax return
+    - open the latest screenshot
+
+run_routine:
+  description: run a user-defined multi-step routine by name
+  slots: [routine_name]
+  examples:
+    - study mode
+    - run my morning routine
+    - start the gaming setup
+    - good night routine
+
+out_of_scope:
+  description: anything with no handler; goes to the LLM
+  examples:
+    - what's the capital of France
+    - tell me a joke about astrophysics
+    - what is 17 times 23
+    - what's the volume of a sphere
+    - play devil's advocate
+    - set the table for dinner
+    - open the pod bay doors
+    - explain the theory of relativity simply

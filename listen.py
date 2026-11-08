@@ -3,11 +3,14 @@ import numpy as np
 import sounddevice as sd
 import keyboard
 from faster_whisper import WhisperModel
+import json
+from datetime import datetime
+from pathlib import Path
 
 SAMPLE_RATE = 16000
 CHANNELS = 1
 HOTKEY = "shift+windows"
-MODEL_SIZE = "base"
+MODEL_SIZE = "large-v3"
 MIN_SECONDS = 0.5
 
 
@@ -50,6 +53,18 @@ def transcribe(model, audio: np.ndarray) -> str:
     return "".join(parts).strip()
 
 
+def log_to_json(file, text, latency):
+    entry = {
+        "timestamp": datetime.now().astimezone().isoformat(),
+        "content": text,
+        "latency": latency,
+    }
+    file = Path(file)
+    file.parent.mkdir(parents=True, exist_ok=True)
+    with open(file, "a", encoding="utf-8") as f:
+        json.dump(entry, f)
+        f.write("\n")
+
 def main():
     model = WhisperModel(MODEL_SIZE, device="cpu", compute_type="int8")
 
@@ -68,6 +83,7 @@ def main():
         latency = time.perf_counter() - start
 
         print(f"{text or '(nothing heard)'}  [{latency:.2f}s]")
+        log_to_json(Path(__file__).resolve().parent / "data" / "log.jsonl", text, latency)
 
 
 if __name__ == "__main__":
