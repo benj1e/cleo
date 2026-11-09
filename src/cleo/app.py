@@ -1,5 +1,6 @@
 import argparse
 from faster_whisper import WhisperModel
+from cleo.tts import speak, build_tts
 from cleo.config import MODEL_SIZE
 from cleo.llm import build_clients, think, remember
 from cleo.stt import record_while_held, transcribe
@@ -9,6 +10,7 @@ import keyboard
 import time
 import cleo.router as router
 
+tts_model = build_tts()
 
 def main():
     parser = argparse.ArgumentParser()
@@ -30,7 +32,7 @@ def main():
     else:
         print(f"Hold {HOTKEY} to talk. Ctrl+C to quit.")
 
-    tools.set_notify(lambda msg: print(f"\n[alert] {msg}"))  # swap for speak() later
+    tools.set_notify(lambda msg: speak(tts_model, f"\n[alert] {msg}"))
 
     while True:
         if args.text:
@@ -66,6 +68,7 @@ def main():
             meta["tier"] = "llm"
 
         latency = time.perf_counter() - start
+        speak(tts_model, reply)
         print(f"{reply}  [{meta['tier']}, {latency:.2f}s]")
 
         log_to_json(

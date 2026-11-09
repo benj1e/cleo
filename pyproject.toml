@@ -5,13 +5,18 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "coqui-tts[codec]>=0.28.0",
     "faster-whisper>=1.2.1",
     "keyboard>=0.13.5",
+    "miniaudio>=1.72",
     "numpy>=2.5.4",
     "openai>=3.46.0",
     "python-dotenv>=1.2.4",
+    "setuptools<82",
+    "six>=1.17.0",
     "sounddevice>=0.5.6",
     "soundfile>=0.14.0",
+    "voicellm>=0.2.0",
 ]
 
 [project.scripts]
